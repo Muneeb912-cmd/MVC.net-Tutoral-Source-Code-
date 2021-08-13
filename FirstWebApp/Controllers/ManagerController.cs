@@ -122,9 +122,9 @@ namespace FirstWebApp.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var senderEmail = new MailAddress("dukocommunity@gmail.com","DeukoWheels");
+                    var senderEmail = new MailAddress("#Your name here#","#Your brand name #");
                     var receiverEmail = new MailAddress(email);
-                    var password = "Incredebols7@duko";
+                    var password = "#Your email password here#";
                     var Subject = subject;
                     var body = message;
                     var smtp = new SmtpClient
