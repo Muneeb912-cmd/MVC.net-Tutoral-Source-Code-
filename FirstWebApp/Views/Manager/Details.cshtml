@@ -1,0 +1,80 @@
+﻿@model IEnumerable<FirstWebApp.Table>
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/BasicLayout.cshtml";
+}
+<style>
+    body {
+        background-color: lightgreen;
+    }
+</style>
+<body>
+    @foreach (var item in Model)
+    {
+
+        <h2 style="color: black; font-size: 50px">DukoWheels (Search Results)</h2>
+        <br />
+        <h2 style="color: black; font-size: 30px">
+            Showing Results For @item.FirstName @item.LastName
+        </h2>
+        <br />
+        <br />
+    }
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BirthDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            Email This User
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                <a style="color:blue" href="@Url.Action("ContactView", new { item.Email, item.FirstName, item.LastName })">Send Recovery Email</a>
+            </td>
+        </tr>
+
+
+
+    }
+</table>
+            
+</body>

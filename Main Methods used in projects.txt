@@ -1,0 +1,145 @@
+//For adding a new user,manager,car 
+public ActionResult AddManager(Person data)
+        {
+            try
+            {
+                UserEntities db = new UserEntities();
+                Table1 t = new Table1();
+                t.Name = data.Name;
+                t.Email = data.Email;
+                t.CNIC = data.Cnic;
+                t.Birthday = data.BirthDay;
+                t.Phone = data.Phone;
+                t.Password = data.Password;
+                db.Table1.Add(t);
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException)
+            {
+                return View("ManagerSignUp");
+
+            }
+            return View("Index");
+        }
+
+//To display all the data on the front end
+ public ActionResult ViewAllManagers()
+        {
+            var list = DB.Table1.ToList();
+            return View(list);
+
+        }
+
+//Serch functionality code
+ public ActionResult SearchedManager(string search)
+        {
+            try
+            {
+                var list = DB.Table1.Where(x => x.Email.Equals(search)).ToList();
+                return View(list);
+            }
+            catch (Exception)
+            {
+
+                return View("ViewManagers");
+            }
+
+        }
+
+//login Code
+ public ActionResult Login(string email,string password)
+        {
+            using (var context=new UseEntities()) 
+            {
+                bool isValid = context.Tables.Any(x => x.Email.Equals(email) && x.Password.Equals(password));
+                if (isValid)
+                {
+                    return View("Home");
+                }
+                bool isValid1 = email.Equals("ceo@dukowheels.com") && password.Equals("CEO12345");
+                if (isValid1)
+                {
+                    return View("CeoView");
+                }
+            }
+            using (var context = new UserEntities())
+            {
+                bool isValid = context.Table1.Any(x => x.Email.Equals(email) && x.Password.Equals(password));
+                if (isValid)
+                {
+                    return View("ManagerView");
+                }
+                return View("Index");
+            }
+           
+
+        }
+
+//Edit Data code
+public ActionResult UserdataEdit(string firstname, string lastname, string email, string phone, string password, string birthday)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Table t = new Table();
+                    t.FirstName = firstname;
+                    t.LastName = lastname;
+                    t.Email = email;
+                    t.Phone = phone;
+                    t.Password = password;
+                    t.BirthDay = birthday;
+                    DB.Entry(t).State = System.Data.Entity.EntityState.Modified;
+                    DB.SaveChanges();
+
+                }
+                ModelState.Clear();
+            }
+            catch (DbEntityValidationException)
+            {
+
+                return View("EditUserDataForm");
+            }
+            var users = DB.Tables.ToList();
+            return View("ViewAllUsers" , users);
+
+        }
+
+//Email Sending Code
+ public ActionResult SendEmail(string email, string subject,string message )
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var senderEmail = new MailAddress("#Your Email Here#","#Name#");
+                    var receiverEmail = new MailAddress(email);
+                    var password = "#Your email password#";
+                    var Subject = subject;
+                    var body = message;
+                    var smtp = new SmtpClient
+                    {
+                        Host = "smtp.gmail.com",
+                        Port = 587,
+                        EnableSsl = true,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials = false,
+                        Credentials = new NetworkCredential(senderEmail.Address, password)
+                    };
+                    using (var mess = new MailMessage(senderEmail, receiverEmail)
+                    {
+                        Subject = subject,
+                        Body = body
+                    }
+                    )
+                    {
+                        smtp.Send(mess);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return View("ContactView");
+            }
+            return View("ListOfUsers");
+        }

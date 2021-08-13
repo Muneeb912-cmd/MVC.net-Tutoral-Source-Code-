@@ -1,0 +1,79 @@
+﻿@model IEnumerable<FirstWebApp.Table>
+
+@{
+    ViewBag.Title = "ViewUsers";
+    Layout = "~/Views/Shared/BasicLayout.cshtml";
+}
+
+<body style="background-color:burlywood">
+    <b><h2 style="color: black; font-size: 30px">DukoWheels<br />list of all the Users</h2></b>
+    <br />
+    <br />
+    <section>
+        @using (Html.BeginForm("Details", "Manager", FormMethod.Post))
+        {
+            <div class="container h-100">
+                <div class="d-flex justify-content-center h-100">
+                    <div class="searchbar">
+                        <p>
+                            Search : <input type="text" id="search" name="search" class="w-40px bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <button type="submit" class="inline-flex items-center bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-pink-500 hover:to-yellow-500 border-0 py-1 px-3 focus:outline-none rounded text-base mt-4 md:mt-0">Search</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </section>
+    <br />
+    <br />
+    <section>
+        <table class="table">
+            <tr>
+                <th>
+                    FirstName
+                </th>
+                <th>
+                    LastName
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    BirthDay
+                </th>
+                <th>
+                    Phone
+                </th>
+                <th>
+                    Password
+                </th>
+
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.FirstName
+                    </td>
+                    <td>
+                        @item.LastName
+                    </td>
+                    <td>
+                        @item.Email
+                    </td>
+                    <td>
+                        @item.BirthDay
+                    </td>
+                    <td>
+                        @item.Password
+                    </td>
+                    <td>
+                        @item.Phone
+                    </td>
+
+                </tr>
+            }
+        </table>
+    </section>
+
+</body>

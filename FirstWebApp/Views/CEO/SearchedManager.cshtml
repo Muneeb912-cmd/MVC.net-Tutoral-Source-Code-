@@ -1,0 +1,67 @@
+﻿@model IEnumerable<FirstWebApp.Table1>
+
+@{
+    ViewBag.Title = "SearchedManager";
+    Layout = "~/Views/Shared/BasicLayout.cshtml";
+}
+@foreach (var item in Model)
+{
+    <h2 style="color: black; font-size: 50px">DukoWheels (Search Results)</h2>
+    <br />
+    <h2 style="color: black; font-size: 30px">
+        Showing Results For @item.Name
+    </h2>
+    <br />
+    <br />
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Birthday)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CNIC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th></th>
+        </tr>
+
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Birthday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CNIC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.ActionLink("Contact", "Edit", new { id = item.Email })
+
+            </td>
+        </tr>
+        
+
+    </table>
+}
