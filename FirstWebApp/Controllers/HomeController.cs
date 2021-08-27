@@ -112,15 +112,16 @@ namespace FirstWebApp.Controllers
         {
             try
             {
-                var list = DB.Tables.Where(x => x.Email.Equals(email)).ToList();
+                var data = DB.Tables.Select(x => x.Email.Equals(email)).ToList();
 
+               
                 if (ModelState.IsValid)
                 {
-                    var senderEmail = new MailAddress("dukocommunity@gmail.com", "DeukoWheels");
+                    var senderEmail = new MailAddress("#Your name here#", "#Your brand name #");
                     var receiverEmail = new MailAddress(email);
-                    var password = "Incredebols7@duko";
+                    var password = "#Your email password here#";
                     var Subject = "Account Recovery";
-                    var body = "Your account data is given below use the password to login again \n" + list;
+                    var body = "Your account Password is given below use the password to login again \n" + data;
                     var smtp = new SmtpClient
                     {
                         Host = "smtp.gmail.com",

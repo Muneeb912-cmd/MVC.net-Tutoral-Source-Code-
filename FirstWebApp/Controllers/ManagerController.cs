@@ -153,5 +153,11 @@ namespace FirstWebApp.Controllers
             }
             return View("ListOfUsers");
         }
+       public ActionResult CardLayout()
+        {
+            var list = DB.Tables.ToList();
+            return View(list);
+        }
+        
     }
 }
